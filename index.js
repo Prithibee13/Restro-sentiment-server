@@ -27,7 +27,7 @@ async function run ()
             const filter = { email: userDetailes.email };
             const options = { upsert: true }
             const updateDoc = {
-                $set: doc
+                $set: userDetailes
             }
             const result = await userCollection.updateOne(filter, updateDoc, options)
 
