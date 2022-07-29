@@ -21,10 +21,15 @@ async function run ()
         await client.connect(); 
         const userCollection = client.db('Restro-sentiment').collection('user');
 
-        app.post('/users' , async(req,res) =>
+        app.put('/users' , async(req,res) =>
         {
             const userDetailes = req.body;
-            const result = await userCollection.insertOne(userDetailes)
+            const filter = { email: userDetailes.email };
+            const options = { upsert: true }
+            const updateDoc = {
+                $set: doc
+            }
+            const result = await userCollection.updateOne(filter, updateDoc, options)
 
             res.send(result)
         })
