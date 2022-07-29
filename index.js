@@ -11,11 +11,24 @@ const port = process.env.PORT || 8000;
 app.use(cors());
 app.use(express.json())
 
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.pwozgdd.mongodb.net/?retryWrites=true&w=majority`;
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
 async function run ()
 {
     try
     {
-    
+        await client.connect(); 
+        const userCollection = client.db('Restro-sentiment').collection('user');
+
+        app.post('/users' , async(req,res) =>
+        {
+            const userDetailes = req.body;
+            const result = await userCollection.insertOne(userDetailes)
+
+            res.send(result)
+        })
+
     }
 
     finally
