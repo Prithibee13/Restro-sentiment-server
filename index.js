@@ -14,6 +14,7 @@ app.use(express.json())
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.pwozgdd.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
+
 async function run ()
 {
     try
@@ -33,6 +34,15 @@ async function run ()
 
             res.send(result)
         })
+
+        /* app.get('/users' , async(req , res) =>
+        {
+            const query = {}
+            const cursor = userCollection.find(query);
+            const users = cursor.toArray();
+            res.send(users);
+
+        }) */
 
     }
 
