@@ -42,9 +42,18 @@ async function run ()
             const query = {}
             const cursor = userCollection.find(query);
             let users = await cursor.toArray();
+            console.log(users)
             res.send(users);
 
         }) 
+
+        app.get('/user/:email' , async(req,res)=>
+        {
+            const email = req.params.email;
+            const query = {email : email}
+            const result = await userCollection.findOne(query);
+            res.send(result);
+        })
 
 
         app.get('/catalog', async (req,res)=>
@@ -53,7 +62,6 @@ async function run ()
             const cursor = foodCollection.find(query)
             let catalog;
             catalog = await cursor.toArray();
-            console.log(catalog);
             res.send(catalog)
         })
 
