@@ -20,6 +20,7 @@ async function run ()
     try
     {
         await client.connect(); 
+
         const userCollection = client.db('Restro-sentiment').collection('user');
         const foodCollection = client.db('Restro-sentiment').collection('food-catagory');
 
@@ -40,7 +41,7 @@ async function run ()
         {
             const query = {}
             const cursor = userCollection.find(query);
-            const users = cursor.toArray();
+            let users = await cursor.toArray();
             res.send(users);
 
         }) 
@@ -49,8 +50,10 @@ async function run ()
         app.get('/catalog', async (req,res)=>
         {
             const query = {}
-            const cursor = await foodCollection.find(query)
-            const catalog = cursor.toArray();
+            const cursor = foodCollection.find(query)
+            let catalog;
+            catalog = await cursor.toArray();
+            console.log(catalog);
             res.send(catalog)
         })
 
@@ -73,5 +76,5 @@ app.get('/' ,(req,res) =>
 
 app.listen(port , ()=>
 {
-    console.log("Doctors-portal-server running in port " , port);
+    console.log("Restro-sentiment running in port " , port);
 })
