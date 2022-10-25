@@ -21,6 +21,7 @@ async function run ()
     {
         await client.connect(); 
         const userCollection = client.db('Restro-sentiment').collection('user');
+        const foodCollection = client.db('Restro-sentiment').collection('food-catagory');
 
         app.put('/users' , async(req,res) =>
         {
@@ -35,14 +36,25 @@ async function run ()
             res.send(result)
         })
 
-        /* app.get('/users' , async(req , res) =>
+        app.get('/users' , async(req , res) =>
         {
             const query = {}
             const cursor = userCollection.find(query);
             const users = cursor.toArray();
             res.send(users);
 
-        }) */
+        }) 
+
+
+        app.get('/catalog', async (req,res)=>
+        {
+            const query = {}
+            const cursor = await foodCollection.find(query)
+            const catalog = cursor.toArray();
+            res.send(catalog)
+        })
+
+        
 
     }
 
