@@ -24,6 +24,7 @@ async function run() {
     const userCollection = client.db("Restro-sentiment").collection("user");
     const foodCollection = client.db("Restro-sentiment").collection("food-catagory");
     const countryCollection = client.db("Restro-sentiment").collection("Country");
+    const restaurantsCollection = client.db("Restro-sentiment").collection("Restaurants");
 
 
     app.put("/users", async (req, res) => {
@@ -68,6 +69,16 @@ async function run() {
       catalog = await cursor.toArray();
       res.send(catalog);
     });
+
+    app.get("/restaurants/:catagory" , async (req , res)=>
+    {
+      const catagory = req.params.catagory;
+      const query = {foodCatagory : catagory };
+      const cursor =  restaurantsCollection.find(query);
+      let restaurants;
+      restaurants = await cursor.toArray();
+      res.send(restaurants)
+    })
   } finally {
   }
 }
