@@ -79,6 +79,28 @@ async function run() {
       restaurants = await cursor.toArray();
       res.send(restaurants)
     })
+
+    app.post("/addCollection" , async (req,res)=>{
+      const newCollection = req.body;
+
+      const result = await foodCollection.insertOne(newCollection)
+
+      res.send(result)
+    })
+
+
+    app.post("/addLocation" , async (req, res) =>
+    {
+      const newLocation = req.body
+
+      const result = await countryCollection.insertOne(newLocation);
+
+      res.send(result)
+
+
+    })
+
+
   } finally {
   }
 }
