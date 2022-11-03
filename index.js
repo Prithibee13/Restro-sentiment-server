@@ -80,14 +80,17 @@ async function run() {
       res.send(restaurants)
     })
 
-    app.get("/restaurants/:id" , async (req , res) =>
+    app.get("/restaurant/:id" , async (req , res) =>
     {
       const id = req.params.id
       const query = {_id : ObjectId(id)}
-      const cursor =  restaurantsCollection.find(query);
-      let restaurant;
-      restaurant = await cursor.toArray();
-      res.send(restaurant)
+      const result = await restaurantsCollection.findOne(query);
+
+      console.log('====================================');
+      console.log(result);
+      console.log('====================================');
+    
+      res.send(result)
 
     })
 
