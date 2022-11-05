@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+const { query } = require("express");
 
 const app = express();
 
@@ -86,9 +87,6 @@ async function run() {
       const query = {_id : ObjectId(id)}
       const result = await restaurantsCollection.findOne(query);
 
-      console.log('====================================');
-      console.log(result);
-      console.log('====================================');
     
       res.send(result)
 
@@ -110,6 +108,30 @@ async function run() {
       const result = await countryCollection.insertOne(newLocation);
 
       res.send(result)
+
+
+    })
+
+
+    app.get("/srcResult/:food/:location/:budget" , async(req,res)=>
+    {
+
+      const food = req.params.food;
+      const location = req.params.location;
+
+      const budget = req.params.budget;
+
+
+      const query = {foodCatagory : food ,  conutry_id : location , 
+        MinimumBudget : {$lte : budget}};
+
+        const cursor = restaurantsCollection.find(query);
+
+        const result = await cursor.toArray();
+        
+        console.log(result);
+
+        res.send(result)
 
 
     })
