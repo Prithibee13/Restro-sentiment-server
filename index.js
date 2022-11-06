@@ -26,6 +26,7 @@ async function run() {
     const foodCollection = client.db("Restro-sentiment").collection("food-catagory");
     const countryCollection = client.db("Restro-sentiment").collection("Country");
     const restaurantsCollection = client.db("Restro-sentiment").collection("Restaurants");
+    const foodsCollection = client.db("Restro-sentiment").collection("food");
 
 
     app.put("/users", async (req, res) => {
@@ -139,7 +140,14 @@ async function run() {
 
     app.get("foods/:id" , async(req,res)=>
     {
+        const id = req.params.id;
+        const query = { restraurentId : id }
 
+        const cursor = foodsCollection.find(query)
+        
+        const result = await cursor.toArray()
+
+        res.send(result)
     })
 
 
