@@ -123,7 +123,7 @@ async function run() {
 
 
       const query = {foodCatagory : food ,  conutry_id : location , 
-        MinimumBudget : {$lte : budget}};
+        MinimumBudget : {$lte : parseInt(budget)}};
 
         const cursor = restaurantsCollection.find(query);
 
@@ -133,6 +133,12 @@ async function run() {
 
         res.send(result)
 
+
+    })
+
+
+    app.get("foods/:id" , async(req,res)=>
+    {
 
     })
 
