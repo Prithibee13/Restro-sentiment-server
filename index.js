@@ -151,6 +151,51 @@ async function run() {
     })
 
 
+    app.put("/setLocation/:id" , async(req,res)=>
+    {
+      const id = req.params.id;
+
+      const details = req.body;
+
+    
+      const filter = {_id : ObjectId(id)}
+
+      const option = {upsert : true}
+
+      const updateDoc = {
+        $set: details,
+      }
+
+      const result = await userCollection.updateOne(filter, updateDoc, option);
+
+      res.send(result);
+
+
+
+    })
+
+    app.put("/makeAdmin/:id" , async(req,res)=>
+    {
+      const id = req.params.id;
+
+      const details = req.body;
+
+    
+      const filter = {_id : ObjectId(id)}
+
+      const option = {upsert : true}
+
+      const updateDoc = {
+        $set: details,
+      }
+
+      const result = await userCollection.updateOne(filter, updateDoc, option);
+
+      res.send(result);
+
+    })
+
+
   } finally {
   }
 }
