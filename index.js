@@ -27,6 +27,8 @@ async function run() {
     const countryCollection = client.db("Restro-sentiment").collection("Country");
     const restaurantsCollection = client.db("Restro-sentiment").collection("Restaurants");
     const foodsCollection = client.db("Restro-sentiment").collection("food");
+    const reviewCollection = client.db("Restro-sentiment").collection("review");
+    const visitorCollection = client.db("Restro-sentiment").collection("visitor");
 
 
     app.put("/users", async (req, res) => {
@@ -193,6 +195,26 @@ async function run() {
 
       res.send(result);
 
+    })
+
+
+    app.post("/addReview", async (req,res)=>
+    {
+      const details = req.body;
+
+      const result = await reviewCollection.insertOne(details);
+
+      res.send(result)
+
+    } )
+
+    app.post("/addVisitor" , async(req,res)=>
+    {
+      const details = req.body;
+
+      const result = await visitorCollection.insertOne(details)
+
+      res.send(details)
     })
 
 
