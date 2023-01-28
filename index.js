@@ -20,7 +20,7 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await client.connect();
+
 
     const userCollection = client.db("Restro-sentiment").collection("user");
     const foodCollection = client.db("Restro-sentiment").collection("food-catagory");
@@ -28,7 +28,7 @@ async function run() {
     const restaurantsCollection = client.db("Restro-sentiment").collection("Restaurants");
     const foodsCollection = client.db("Restro-sentiment").collection("food");
     const reviewCollection = client.db("Restro-sentiment").collection("review");
-    const visitorCollection = client.db("Restro-sentiment").collection("visitor");
+    const visitorCollection = client.db("Restro-sentiment").collection("visitors");
 
 
     app.put("/users", async (req, res) => {
@@ -217,6 +217,18 @@ async function run() {
       res.send(details)
     })
 
+    app.get("/visitor/:id" , async(req,res)=>
+    {
+        const query = {}
+
+    })
+
+
+    app.get("/review/:id" , async(req , res)=>
+    {
+
+    })
+
 
   } finally {
   }
@@ -229,5 +241,11 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
+  client.connect(err => {
+    if(err)
+        console.log(err);
+    else
+        console.log('Database Connected Successfully');
+});
   console.log("Restro-sentiment running in port ", port);
 });
